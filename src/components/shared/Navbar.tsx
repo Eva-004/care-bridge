@@ -63,9 +63,9 @@ const Navbar = () => {
             className="object-contain"
           />
 
-          <span className="text-xl font-bold text-[#0F4C5C]">
-            CareBridge
-          </span>
+          <div className="text-xl font-bold text-[#0F4C5C]">
+            Care<span className="text-[#FB8B24]">Bridge</span>
+          </div>
         </NavLink>
       </div>
 
@@ -120,7 +120,7 @@ const Navbar = () => {
       <div className="navbar-end">
         <NavLink
           href="/login"
-          className="px-5 py-2 rounded-lg btn btn-outline border border-[#0F4C5C] hover:text-white font-medium hover:bg-[#0c3f4c] "
+          className="px-5 py-2 rounded-lg btn btn-outline border border-[#0F4C5C] hover:text-white font-medium hover:bg-[#0F4C5C] "
         >
           Login
         </NavLink>
