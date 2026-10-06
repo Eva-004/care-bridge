@@ -9,23 +9,20 @@ const Banner = () => {
       <div className="mx-auto grid max-w-7xl items-center gap-10 lg:grid-cols-2">
         <div>
           <div className="mb-4 flex items-center gap-3">
-            <span className="h-0.5 w-8 bg-[#FB8B24]" />
+            <span className="h-0.5 w-8 bg-[#E36414]" />
             <p className="text-sm font-medium uppercase tracking-wide text-[#0F4C5C]">
               Together We Can Make A Difference
             </p>
           </div>
 
           <h1 className="max-w-xl text-4xl font-bold leading-tight text-[#0F4C5C] md:text-5xl">
-            Empowering People,
+            Helping People,
             <br />
-            Building Stronger
-            <span className="text-[#E36414]"> Communities</span>
+            Making a Difference
           </h1>
 
           <p className="mt-5 max-w-lg leading-7 text-[#1D2D44]/75">
-            CareBridge connects people in need with kind-hearted individuals
-            and organizations, creating a community of support, hope, and
-            change.
+            CareBridge brings people who need help together with those who are ready to help, creating a simple way to support others and make a difference.
           </p>
 
           <div className="mt-7 flex flex-wrap gap-4">
@@ -58,7 +55,7 @@ const Banner = () => {
           </div>
 
           <div className="absolute bottom-5 left-5 flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-medium text-[#0F4C5C] shadow-md">
-            <HiOutlineHandRaised className="text-xl text-[#FB8B24]" />
+            <HiOutlineHandRaised className="text-xl text-[#E36414]" />
             Your Support Matters
           </div>
         </div>
@@ -90,7 +87,7 @@ const Banner = () => {
         </div>
 
         <div className="flex items-center gap-3">
-          <FiHeart className="text-3xl text-[#FB8B24]" />
+          <FiHeart className="text-3xl text-[#E36414]" />
           <div>
             <h3 className="font-bold text-[#0F4C5C]">100%</h3>
             <p className="text-sm text-[#1D2D44]/60">Verified Support</p>

@@ -69,7 +69,7 @@ const Navbar = () => {
         </NavLink>
       </div>
 
-      <div className="navbar-center hidden lg:flex">
+      <div className="navbar-center hidden md:flex">
         <ul className="menu menu-horizontal gap-2">
           <li>
             <NavLink
@@ -117,7 +117,7 @@ const Navbar = () => {
         </ul>
       </div>
 
-      <div className="navbar-end">
+      <div className="navbar-end md:flex hidden">
         <NavLink
           href="/login"
           className="px-5 py-2 rounded-lg btn btn-outline border border-[#0F4C5C] hover:text-white font-medium hover:bg-[#0F4C5C] "
