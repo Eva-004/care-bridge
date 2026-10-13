@@ -4,13 +4,19 @@ import NavLink from "./NavLink";
 import { authClient } from "@/lib/auth-client";
 import { toast } from "react-toastify";
 import ProfileDropdown from "./ProfileDropdown";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 const Navbar = () => {
   const userData = authClient.useSession();
   const user = userData.data?.user;
   console.log(user);
   const router = useRouter();
+
+  const pathName: string = usePathname();
+
+  if (pathName.includes("dashboard")) {
+    return null;
+  }
   const handleLogOut = async () => {
     await authClient.signOut();
     toast.success('Logout successfully!');

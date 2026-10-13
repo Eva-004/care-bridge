@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import React from "react";
 import { AiFillInstagram } from "react-icons/ai";
 import { FaFacebookSquare } from "react-icons/fa";
@@ -9,6 +10,11 @@ import { FaXTwitter } from "react-icons/fa6";
 
 const Footer = () => {
 
+  const pathName: string = usePathname();
+
+  if (pathName.includes("dashboard")) {
+    return null;
+  }
   return (
     <footer className="bg-[#0F4C5C] pt-16 pb-8">
       <div className="w-11/12 md:w-10/12 mx-auto">

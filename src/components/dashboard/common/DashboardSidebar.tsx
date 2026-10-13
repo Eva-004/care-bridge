@@ -25,7 +25,7 @@ export default function DashboardSidebar({
           key={item.href}
           href={item.href}
           onClick={() => setOpen(false)}
-          className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-[#1D2D44] transition-all duration-200 hover:bg-[#F8F9FA] hover:text-[#E36414]"
+          className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-white transition-all duration-200 hover:bg-[#F8F9FA] hover:text-[#E36414]"
         >
           {item.label}
         </NavLink>
@@ -35,11 +35,11 @@ export default function DashboardSidebar({
 
   return (
     <>
-      <div className="hidden min-h-screen w-60 border-r border-[#0F4C5C]/10 bg-white md:flex">
+      <div className="hidden min-h-screen w-60 border-r border-[#0F4C5C]/10 bg-[#0F4C5C] md:flex">
         <div className="w-full p-3">
           <div className="mb-6 flex items-center gap-3 px-1">
-            <h1 className="text-2xl font-bold text-[#0F4C5C]">
-              NogorBondhu
+            <h1 className="text-2xl font-bold text-white">
+              CareBridge
             </h1>
           </div>
 
