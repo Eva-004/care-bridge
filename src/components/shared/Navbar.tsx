@@ -1,8 +1,21 @@
-import React from "react";
+'use client'
 import Image from "next/image";
 import NavLink from "./NavLink";
+import { authClient } from "@/lib/auth-client";
+import { toast } from "react-toastify";
+import ProfileDropdown from "./ProfileDropdown";
+import { useRouter } from "next/navigation";
 
 const Navbar = () => {
+  const userData = authClient.useSession();
+  const user = userData.data?.user;
+  console.log(user);
+  const router = useRouter();
+  const handleLogOut = async () => {
+    await authClient.signOut();
+    toast.success('Logout successfully!');
+    router.push("/login");
+  }
   return (
     <div className="navbar bg-[#F8F9FA] border-b border-gray-200 px-4 md:px-8 lg:px-12">
       <div className="navbar-start">
@@ -25,7 +38,7 @@ const Navbar = () => {
                 strokeLinejoin="round"
                 strokeWidth="2"
                 d="M4 6h16M4 12h8m-8 6h16"
-              />   
+              />
             </svg>
           </div>
 
@@ -117,14 +130,25 @@ const Navbar = () => {
         </ul>
       </div>
 
-      <div className="navbar-end md:flex hidden">
-        <NavLink
-          href="/login"
-          className="px-5 py-2 rounded-lg btn btn-outline border border-[#0F4C5C] hover:text-white font-medium hover:bg-[#0F4C5C] "
-        >
-          Login
-        </NavLink>
-      </div>
+      {!user &&
+        <div className="navbar-end md:flex hidden">
+          <NavLink
+            href="/login"
+            className="px-5 py-2 text-[#0F4C5C] rounded-lg btn btn-outline border border-[#0F4C5C] hover:text-white font-medium hover:bg-[#0F4C5C] "
+          >
+            Login
+          </NavLink>
+        </div>
+      }
+
+      {user &&
+        <div className="navbar-end  flex gap-3">
+
+          <ProfileDropdown handleLogOut={handleLogOut} image={user?.image ?? ""} name={user?.name} email={user?.email} role={user?.role}></ProfileDropdown>
+
+
+        </div>
+      }
     </div>
   );
 };

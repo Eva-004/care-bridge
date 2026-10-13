@@ -14,11 +14,13 @@ import {
   TextField,
 } from "@heroui/react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { FormEvent } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { toast } from "react-toastify";
 
 const LoginPage = () => {
+  const router = useRouter();
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -36,15 +38,14 @@ const LoginPage = () => {
       email,
       password,
       rememberMe: true,
-      callbackURL: "/",
     });
 
     if (error) {
       toast.error(error.message || "Login failed");
       return;
     }
-
     toast.success("Login successfully!");
+    router.push("/");
   };
 
   const handleGoogleSignIn = async () => {
@@ -82,7 +83,7 @@ const LoginPage = () => {
 
             <Input
               placeholder="john@example.com"
-              className="border-[#0F4C5C] focus:border-[#0F4C5C]"
+              className="border-[#0F4C5C] w-full focus:border-[#0F4C5C]"
             />
 
             <FieldError />
@@ -113,7 +114,7 @@ const LoginPage = () => {
 
             <Input
               placeholder="Enter your password"
-              className="border-[#0F4C5C] focus:border-[#0F4C5C]"
+              className="border-[#0F4C5C] w-full focus:border-[#0F4C5C]"
             />
 
             <Description className="text-[#1D2D44]/70">

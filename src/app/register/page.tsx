@@ -70,7 +70,7 @@ const RegisterPage = () => {
           <Label className="text-[#1D2D44]">Name</Label>
           <Input
             placeholder="Enter your name"
-            className="border-[#0F4C5C] focus:border-[#0F4C5C]"
+            className="border-[#0F4C5C] w-full focus:border-[#0F4C5C]"
           />
           <FieldError />
         </TextField>
@@ -90,7 +90,7 @@ const RegisterPage = () => {
           <Label className="text-[#1D2D44]">Email</Label>
           <Input
             placeholder="john@example.com"
-            className="border-[#0F4C5C] focus:border-[#0F4C5C]"
+            className="border-[#0F4C5C] w-full focus:border-[#0F4C5C]"
           />
           <FieldError />
         </TextField>
@@ -120,7 +120,7 @@ const RegisterPage = () => {
 
           <Input
             placeholder="Enter your password"
-            className="border-[#0F4C5C] focus:border-[#0F4C5C]"
+            className="border-[#0F4C5C] w-full focus:border-[#0F4C5C]"
           />
 
           <Description className="text-[#1D2D44]/70">

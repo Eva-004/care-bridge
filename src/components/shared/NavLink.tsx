@@ -6,14 +6,15 @@ import React from 'react';
 interface  NavLinkProps{
  href: string,
  children: React.ReactNode,
-  className?: string;
+  className?: string,
+  onClick?: () => void;
 }
 
-const NavLink = ({href, children,className = "" }:NavLinkProps) => {
+const NavLink = ({href, children,className = "",onClick, }:NavLinkProps) => {
     const pathName = usePathname();
     const isActive = href === pathName;
     return (
-       <Link href={href} className={`${className} ${isActive ? "text-[#E36414]  font-bold" : ""}`}>
+       <Link href={href} onClick={onClick} className={`${className} ${isActive ? "text-[#E36414]  font-bold" : ""}`}>
         {children}
        </Link>
     );
