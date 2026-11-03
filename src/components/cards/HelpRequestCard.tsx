@@ -5,11 +5,17 @@ import {
   FaMapMarkerAlt,
   FaArrowRight,
   FaHandHoldingHeart,
+  FaUser,
+  FaPhone,
+  FaCalendarAlt,
 } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 
 interface HelpRequest {
   _id: string;
+  name?: string;
+  phone?: string;
+  createdAt?: string;
   category?: {
     name?: string;
   };
@@ -37,12 +43,13 @@ const HelpRequestCard = ({ request }: HelpRequestCardProps) => {
   };
 
   return (
-    <Card className="flex h-full flex-col rounded-xl border border-gray-100 bg-white p-5 shadow-sm transition hover:shadow-md">
+    <Card className="flex h-full flex-col rounded-xl border border-gray-100 bg-white p-4 shadow-sm transition hover:shadow-md">
       <div className="flex items-center justify-between gap-2">
         <span className="flex items-center gap-2 text-xs font-semibold text-[#0F4C5C]">
           <FaHandHoldingHeart />
           {request?.category?.name || "General"}
         </span>
+
         <span
           className={`rounded-full px-3 py-1 text-xs font-semibold capitalize ${
             urgencyColors[request?.urgency?.toLowerCase() || ""] ||
@@ -52,22 +59,47 @@ const HelpRequestCard = ({ request }: HelpRequestCardProps) => {
           {request?.urgency || "Normal"}
         </span>
       </div>
-      <p className="mt-5 line-clamp-2 text-sm leading-6 text-[#1D2D44]">
+
+      <div className="mt-4 space-y-2 text-sm text-gray-500">
+        <div className="flex items-center gap-2">
+          <FaUser className="shrink-0 text-[#0F4C5C]" />
+          <span>{request?.name || "Anonymous"}</span>
+        </div>
+
+        <div className="flex items-center gap-2">
+          <FaPhone className="shrink-0 text-[#0F4C5C]" />
+          <span>{request?.phone || "Phone not available"}</span>
+        </div>
+
+        <div className="flex items-center gap-2">
+          <FaCalendarAlt className="shrink-0 text-[#0F4C5C]" />
+          <span>
+            {request?.createdAt
+              ? new Date(request.createdAt).toLocaleDateString("en-GB")
+              : "Date not available"}
+          </span>
+        </div>
+      </div>
+
+      <p className="mt-3 line-clamp-2 text-sm leading-5 text-[#1D2D44]">
         {request?.description || "No description available."}
       </p>
-      <div className="mt-5 rounded-lg bg-[#F8F9FA] p-4">
+
+      <div className="mt-3 rounded-lg bg-[#F8F9FA] p-3">
         <p className="text-xs text-gray-500">Requested Amount</p>
-        <h3 className="mt-1 text-2xl font-bold text-[#0F4C5C]">
+        <h3 className="mt-1 text-xl font-bold text-[#0F4C5C]">
           ৳{Number(request?.amount || 0).toLocaleString("en-IN")}
         </h3>
       </div>
-      <div className="mt-4 flex items-center gap-2 text-sm text-gray-500">
+
+      <div className="mt-3 flex items-center gap-2 text-sm text-gray-500">
         <FaMapMarkerAlt className="shrink-0 text-[#E36414]" />
         <span className="truncate">
           {request?.location || "Location not specified"}
         </span>
       </div>
-      <div className="mt-auto border-t border-gray-100 pt-4">
+
+      <div className="mt-auto border-t border-gray-100 pt-3">
         <Button
           onPress={handleDetails}
           className="w-full bg-[#0F4C5C] font-medium text-white hover:bg-[#0b3d4a]"

@@ -23,6 +23,7 @@ import {
 } from "react-icons/fa";
 import { getCategories } from "@/lib/fetchData";
 import { toast } from "react-toastify";
+import { authClient } from "@/lib/auth-client";
 
 interface Category {
   _id: string;
@@ -34,6 +35,9 @@ export default function HelpRequestForm() {
   const [supportType, setSupportType] = useState("");
   const [loading, setLoading] = useState(false);
   const [documents, setDocuments] = useState<File[]>([]);
+
+  const userData = authClient.useSession();
+  const user = userData.data?.user;
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -52,6 +56,9 @@ export default function HelpRequestForm() {
 
     try {
       const formData = new FormData(form);
+
+      formData.append("userId", user?.id || "");
+      formData.append("userName", user?.name || "");
 
       documents.forEach((file) => {
         formData.append("documents", file);
