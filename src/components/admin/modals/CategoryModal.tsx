@@ -1,4 +1,3 @@
-
 "use client";
 
 import { Plus } from "@gravity-ui/icons";
@@ -11,7 +10,8 @@ import {
   TextArea,
   TextField,
 } from "@heroui/react";
-import { FormEvent } from "react";
+import { FormEvent, useRef } from "react";
+import { toast } from "react-toastify";
 
 interface CategoryModalProps {
   isOpen: boolean;
@@ -22,6 +22,7 @@ const CategoryModal = ({
   isOpen,
   setIsOpen,
 }: CategoryModalProps) => {
+  const formRef = useRef<HTMLFormElement>(null);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -35,7 +36,7 @@ const CategoryModal = ({
 
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_SERVER_URL}/donationCategories`,
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/helpCategories`,
         {
           method: "POST",
           headers: {
@@ -46,13 +47,16 @@ const CategoryModal = ({
       );
 
       if (!res.ok) {
-        throw new Error("Failed to create category");
+        toast.error("Failed to create category");
+        return;
       }
 
-      e.currentTarget.reset();
+      toast.success("Category created successfully");
+      formRef.current?.reset();
       setIsOpen(false);
     } catch (error) {
       console.error(error);
+      toast.error("Something went wrong");
     }
   };
 
@@ -87,12 +91,12 @@ const CategoryModal = ({
             <Modal.Body className="p-6">
               <Surface variant="default">
                 <form
+                  ref={formRef}
                   onSubmit={handleSubmit}
                   className="flex flex-col gap-5"
                 >
                   <TextField isRequired className="w-full">
                     <Label>Category Name</Label>
-
                     <Input
                       name="name"
                       placeholder="e.g. Education, Medicine, Food"
@@ -102,7 +106,6 @@ const CategoryModal = ({
 
                   <TextField className="w-full">
                     <Label>Description</Label>
-
                     <TextArea
                       name="description"
                       placeholder="Write a short description about this category"
@@ -111,10 +114,7 @@ const CategoryModal = ({
                   </TextField>
 
                   <Modal.Footer>
-                    <Button
-                      slot="close"
-                      variant="secondary"
-                    >
+                    <Button slot="close" variant="secondary">
                       Cancel
                     </Button>
 

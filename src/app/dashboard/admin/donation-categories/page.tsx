@@ -1,11 +1,12 @@
 
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Table } from "@heroui/react";
 import { Pencil } from "@gravity-ui/icons";
 import { BsTrash2 } from "react-icons/bs";
 import CategoryModal from "@/components/admin/modals/CategoryModal";
+import { getCategories } from "@/lib/fetchData";
 
 
 interface Category {
@@ -14,15 +15,18 @@ interface Category {
   description: string;
 }
 
-interface DonationCategoriesProps {
-  categories: Category[];
-}
 
-const DonationCategories = ({
-  categories,
-}: DonationCategoriesProps) => {
+const DonationCategories = () => {
   const [isOpen, setIsOpen] = useState(false);
-
+  const[categories,setCategories]=useState<Category[]>([]);
+  useEffect(()=>{
+    const fetchCategories = async()=>{
+        const data = await getCategories();
+        setCategories(data);
+    }
+    fetchCategories();
+  },[]);
+ console.log(categories);
   return (
     <div className="w-11/12 mx-auto py-4">
       <div className="mb-5 flex items-center justify-between gap-3">
@@ -75,7 +79,7 @@ const DonationCategories = ({
                       <Button
                         isIconOnly
                         size="sm"
-                       
+                       className={'bg-white'}
                         aria-label="Edit category"
                       >
                         <Pencil  className="text-[#0F4C5C]" />
@@ -84,7 +88,7 @@ const DonationCategories = ({
                       <Button
                         isIconOnly
                         size="sm"
-                       
+                       className={'bg-white'}
                         aria-label="Delete category"
                       >
                         <BsTrash2 className="text-red-500" />
