@@ -21,6 +21,8 @@ interface HelpRequest {
   };
   urgency?: string;
   description?: string;
+  supportType: string,
+  needs?: string,
   amount?: string | number;
   location?: string;
 }
@@ -51,10 +53,9 @@ const HelpRequestCard = ({ request }: HelpRequestCardProps) => {
         </span>
 
         <span
-          className={`rounded-full px-3 py-1 text-xs font-semibold capitalize ${
-            urgencyColors[request?.urgency?.toLowerCase() || ""] ||
+          className={`rounded-full px-3 py-1 text-xs font-semibold capitalize ${urgencyColors[request?.urgency?.toLowerCase() || ""] ||
             "bg-gray-100 text-gray-600"
-          }`}
+            }`}
         >
           {request?.urgency || "Normal"}
         </span>
@@ -85,12 +86,23 @@ const HelpRequestCard = ({ request }: HelpRequestCardProps) => {
         {request?.description || "No description available."}
       </p>
 
-      <div className="mt-3 rounded-lg bg-[#F8F9FA] p-3">
-        <p className="text-xs text-gray-500">Requested Amount</p>
-        <h3 className="mt-1 text-xl font-bold text-[#0F4C5C]">
-          ৳{Number(request?.amount || 0).toLocaleString("en-IN")}
-        </h3>
-      </div>
+      {request?.supportType === "financial" ? (
+        <div className="mt-3 rounded-lg bg-[#F8F9FA] p-3">
+          <p className="text-xs text-gray-500">Requested Amount</p>
+          <h3 className="mt-1 text-xl font-bold text-[#0F4C5C]">
+            ৳{Number(request?.amount || 0).toLocaleString("en-IN")}
+          </h3>
+        </div>
+      ) : (
+        <div className="mt-3 rounded-lg bg-[#F8F9FA] p-3">
+          <p className="text-xs text-gray-500">Requested Support</p>
+          <h3 className="mt-1 text-sm font-semibold text-[#0F4C5C]">
+            {request?.needs
+              ? request.needs.split(/\s+/).slice(0, 2).join(" ") + "..."
+              : "Essential Items Needed"}
+          </h3>
+        </div>
+      )}
 
       <div className="mt-3 flex items-center gap-2 text-sm text-gray-500">
         <FaMapMarkerAlt className="shrink-0 text-[#E36414]" />

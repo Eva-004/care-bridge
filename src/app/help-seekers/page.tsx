@@ -28,6 +28,8 @@ interface HelpRequest {
   };
   urgency?: string;
   description?: string;
+  supportType: string,
+  needs?: string,
   amount?: string | number;
   location?: string;
 }

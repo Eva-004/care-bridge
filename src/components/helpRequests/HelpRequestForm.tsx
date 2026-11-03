@@ -239,6 +239,16 @@ export default function HelpRequestForm() {
             </TextField>
           )}
 
+          {supportType === "in-kind" && (
+            <TextField isRequired name="needs" className="w-full">
+              <Label>What Do You Need?</Label>
+              <Input
+                placeholder="e.g. Medicine: Paracetamol, Food: Rice (10kg), Oil (2L), Clothes..."
+              />
+              <FieldError />
+            </TextField>
+          )}
+
           <TextField isRequired name="location" className="w-full">
             <Label>Location</Label>
             <div className="relative">
