@@ -15,7 +15,7 @@ interface HelpRequest {
   };
   urgency?: string;
   description?: string;
-  amount?: number;
+  amount?: string | number;
   location?: string;
 }
 
