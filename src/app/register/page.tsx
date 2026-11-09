@@ -45,7 +45,7 @@ const RegisterPage = () => {
     }
 
     toast.success("Register successfully!");
-    router.push("/");
+    router.push("/choose-role");
   };
 
   const handleGoogleSignIn = async () => {
