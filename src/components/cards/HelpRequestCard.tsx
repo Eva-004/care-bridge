@@ -41,7 +41,7 @@ const HelpRequestCard = ({ request }: HelpRequestCardProps) => {
   };
 
   const handleDetails = () => {
-    router.push(`/help-requests/${request?._id}`);
+    router.push(`/help-seekers/${request?._id}`);
   };
 
   return (
