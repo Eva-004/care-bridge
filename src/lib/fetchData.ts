@@ -3,6 +3,12 @@ interface Filters {
   category: string;
   urgency: string;
 }
+interface HelpRequestDocument {
+  fileId: string;
+  name: string;
+  type: string;
+  url?: string;
+}
 
 export const getRequests = async (filters?: Filters) => {
   const params = new URLSearchParams();
@@ -22,14 +28,20 @@ export const getRequests = async (filters?: Filters) => {
   return res.json();
 };
 
-export const getCategories = async()=>{
-    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/helpCategories`);
-    const data = await res.json();
- return data;
+export const getCategories = async () => {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/helpCategories`);
+  const data = await res.json();
+  return data;
 }
-export const getRequestById = async(id: string)=>{
-    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/helpRequests/${id}`);
-    const data = await res.json();
- return data;
+export const getRequestById = async (id: string) => {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/helpRequests/${id}`);
+  const data = await res.json();
+  return {
+    ...data,
+    documents: data.documents?.map((doc: HelpRequestDocument) => ({
+      ...doc,
+      url: `${process.env.NEXT_PUBLIC_SERVER_URL}/files/${doc.fileId}`,
+    })),
+  };
 }
 
