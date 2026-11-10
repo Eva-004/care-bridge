@@ -1,11 +1,33 @@
 
 "use client";
 
+import { authClient } from "@/lib/auth-client";
 import { Card, Button } from "@heroui/react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { FaHandHoldingHeart, FaUser } from "react-icons/fa";
 
+
 const ChooseRolePage = () => {
+  const userData = authClient.useSession();
+    const user = userData.data?.user;
+    const router = useRouter();
+  const handleRole = async () => {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/user/${user?.id}/role`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        role: "donor",
+      }),
+    });
+
+    const data = await res.json();
+    if(res){
+      router.push("/");
+    }
+  }
   return (
     <div className="flex min-h-screen items-center justify-center bg-[#F8F9FA] px-4 py-10">
       <div className="w-full max-w-3xl space-y-8">
@@ -55,12 +77,12 @@ const ChooseRolePage = () => {
               </p>
             </div>
 
-            <Link
-              href="/dashboard/donor"
+            <Button
+              onClick={handleRole}
               className="mt-2 w-full bg-[#E36414] font-semibold text-white hover:bg-[#E36414]/90"
             >
               Continue as Donor
-            </Link>
+            </Button>
           </Card>
         </div>
 

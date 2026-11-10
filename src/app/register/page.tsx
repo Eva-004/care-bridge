@@ -56,8 +56,7 @@ const RegisterPage = () => {
 
   return (
     <Card
-      className="mx-auto my-8 w-full max-w-md bg-white px-6 py-5 shadow-md"
-    >
+      className="mx-auto my-8 w-full max-w-md bg-white px-6 py-5 shadow-md">
       <h1 className="text-center text-2xl font-bold text-[#1D2D44]">
         Register
       </h1>
