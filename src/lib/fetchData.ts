@@ -9,6 +9,14 @@ interface HelpRequestDocument {
   type: string;
   url?: string;
 }
+interface DonationData {
+  name: string;
+  category: string;
+  purpose: string;
+  amount: number;
+  email: string;
+  phone: string;
+}
 
 export const getRequests = async (filters?: Filters) => {
   const params = new URLSearchParams();
@@ -43,14 +51,6 @@ export const getRequestById = async (id: string) => {
       url: `${process.env.NEXT_PUBLIC_SERVER_URL}/files/${doc.fileId}`,
     })),
   };
-}
-interface DonationData {
-  name: string;
-  category: string;
-  purpose: string;
-  amount: number;
-  email: string;
-  phone: string;
 }
 
 export const createDonation = async (donationData: DonationData) => {

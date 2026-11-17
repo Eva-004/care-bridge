@@ -13,15 +13,22 @@ import {
   TextField,
 } from "@heroui/react";
 import { FaUser, FaPaperPlane } from "react-icons/fa";
-import { getCategories } from "@/lib/fetchData";
+import { createDonation, getCategories } from "@/lib/fetchData";
+import { authClient } from "@/lib/auth-client";
 
 interface Category {
   _id: string;
   name: string;
 }
 
+
 const DonateForm = () => {
   const [categories, setCategories] = useState<Category[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  const userData = authClient.useSession();
+  const user = userData.data?.user;
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -32,8 +39,35 @@ const DonateForm = () => {
     fetchCategories();
   }, []);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (!user?.email) {
+      setError("Please login to continue your donation.");
+      return;
+    }
+
+    setLoading(true);
+    setError("");
+
+    const formData = new FormData(e.currentTarget);
+
+    const donationData = {
+      name: String(formData.get("name")),
+      category: String(formData.get("category")),
+      purpose: String(formData.get("purpose") || ""),
+      amount: Number(formData.get("amount")),
+      phone: String(formData.get("phone")),
+      email: user?.email,
+    };
+
+    try {
+      const result = await createDonation(donationData);
+      window.location.href = result.gatewayUrl;
+    } catch (error) {
+      setError(error instanceof Error ? error.message : "Something went wrong");
+      setLoading(false);
+    }
   };
 
   return (
@@ -53,6 +87,12 @@ const DonateForm = () => {
               <FaUser className="absolute left-3 top-1/2 z-10 -translate-y-1/2 text-sm text-gray-400" />
               <Input placeholder="Enter your name" className="w-full pl-9" />
             </div>
+            <FieldError />
+          </TextField>
+
+          <TextField isRequired name="phone" type="tel" className="w-full">
+            <Label>Phone Number</Label>
+            <Input type="tel" placeholder="Enter your phone number" />
             <FieldError />
           </TextField>
 
@@ -121,10 +161,11 @@ const DonateForm = () => {
       <div className="w-full border-t border-gray-100 pt-4">
         <Button
           type="submit"
+          isDisabled={loading}
           className="w-full bg-[#0F4C5C] font-semibold text-white hover:bg-[#0b3d4a]"
         >
           <FaPaperPlane className="text-sm" />
-          Continue to Payment
+          {loading ? "Redirecting..." : "Continue to Payment"}
         </Button>
       </div>
     </Form>
