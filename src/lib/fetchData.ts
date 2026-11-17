@@ -44,4 +44,33 @@ export const getRequestById = async (id: string) => {
     })),
   };
 }
+interface DonationData {
+  name: string;
+  category: string;
+  purpose: string;
+  amount: number;
+  email: string;
+  phone: string;
+}
+
+export const createDonation = async (donationData: DonationData) => {
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_URL}/donations`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(donationData),
+    }
+  );
+
+  const data = await res.json();
+
+  if (!res.ok) {
+    throw new Error(data.message || "Failed to create donation");
+  }
+
+  return data;
+};
 
