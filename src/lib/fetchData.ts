@@ -74,3 +74,14 @@ export const createDonation = async (donationData: DonationData) => {
   return data;
 };
 
+export const getDonations = async (email: string) => {
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_URL}/donations/${email}`
+  );
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch donations");
+  }
+
+  return res.json();
+};
