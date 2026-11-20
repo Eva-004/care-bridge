@@ -85,3 +85,14 @@ export const getDonations = async (email: string) => {
 
   return res.json();
 };
+export const getPayments = async (email: string) => {
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_URL}/payments/${encodeURIComponent(email)}`
+  );
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch payment history");
+  }
+
+  return res.json();
+};

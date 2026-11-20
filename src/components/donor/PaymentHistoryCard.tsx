@@ -16,7 +16,6 @@ export interface Payment {
   currency: string;
   status: "SUCCESS" | "PENDING" | "FAILED";
   paymentMethod: string;
-  bankTranId?: string;
   createdAt: string;
 }
 
@@ -44,7 +43,7 @@ const PaymentHistoryCard = ({ payment }: PaymentHistoryCardProps) => {
   }[payment.status];
 
   return (
-    <Card shadow-sm className="border border-gray-100">
+    <Card  className="border border-gray-100 shadow-sm">
       <div className="gap-4 p-4 sm:p-5">
         <div className="flex items-center justify-between gap-3">
           <div className="flex items-center gap-3">
@@ -83,14 +82,6 @@ const PaymentHistoryCard = ({ payment }: PaymentHistoryCardProps) => {
               {payment.paymentMethod.replace("-", " ")}
             </span>
           </div>
-
-          <div className="flex justify-between gap-3">
-            <span className="text-gray-500">Bank Transaction ID</span>
-            <span className="break-all text-right font-medium text-[#1D2D44]">
-              {payment.bankTranId || "Not available"}
-            </span>
-          </div>
-
           <div className="flex justify-between gap-3">
             <span className="flex items-center gap-2 text-gray-500">
               <FiCalendar /> Date
