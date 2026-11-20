@@ -96,3 +96,7 @@ export const getPayments = async (email: string) => {
 
   return res.json();
 };
+export const getRoles = async () => {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/roles`);
+  return res.json();
+};
