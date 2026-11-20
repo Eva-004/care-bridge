@@ -15,43 +15,43 @@ const PaymentSuccessPage = () => {
   }, []);
 
   return (
-    <main className="flex min-h-screen items-center justify-center bg-[#F8F9FA] px-4 py-8">
-      <Card className="w-full max-w-md rounded-2xl border border-gray-100 bg-white shadow-sm">
-        <div className="flex items-center gap-5 p-6 text-center sm:p-8">
-          <div className="flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
-            <div className="flex h-11 w-11 items-center justify-center rounded-full bg-green-500 text-white">
-              <FaCheck className="text-xl" />
+    <main className="flex min-h-screen items-center justify-center bg-[#F8F9FA] px-4 py-10">
+      <Card className="w-full max-w-md rounded-2xl border border-gray-100 bg-white p-6 shadow-sm sm:p-10">
+        <div className="flex flex-col items-center text-center">
+          <div className="mb-5 flex h-20 w-20 items-center justify-center rounded-full bg-green-100">
+            <div className="flex h-14 w-14 items-center justify-center rounded-full bg-green-500 text-white">
+              <FaCheck className="text-2xl" />
             </div>
           </div>
 
-          <div className="space-y-2">
-            <h1 className="text-2xl font-bold text-[#0F4C5C]">
-              Payment Successful!
-            </h1>
-            <p className="text-sm leading-6 text-gray-500">
-              Your donation has been completed successfully. Thank you for
-              supporting CareBridge.
-            </p>
-          </div>
+          <h1 className="text-2xl font-bold text-[#0F4C5C] sm:text-3xl">
+            Payment Successful!
+          </h1>
 
-          <div className="w-full rounded-xl bg-[#F8F9FA] p-4">
-            <p className="text-xs text-gray-500">Transaction ID</p>
-            <p className="mt-1 break-all text-sm font-semibold text-[#0F4C5C]">
+          <p className="mt-3 max-w-sm text-sm leading-6 text-gray-500 sm:text-base">
+            Your donation has been completed successfully.
+            Thank you for supporting CareBridge.
+          </p>
+
+          <div className="mt-7 w-full rounded-xl bg-[#F8F9FA] p-5">
+            <p className="text-sm text-gray-500">
+              Transaction ID
+            </p>
+            <p className="mt-2 break-all text-base font-semibold text-[#0F4C5C]">
               {tranId || "Loading..."}
             </p>
           </div>
 
-          <div className="flex items-center gap-2 text-sm text-green-600">
+          <div className="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-600">
             <FaHeart />
             <span>Thank you for your kindness!</span>
           </div>
 
           <Link
             href="/"
-            className="w-full bg-[#0F4C5C] font-semibold text-white"
-            
+            className="mt-8 w-full bg-[#0F4C5C] font-semibold text-white hover:bg-[#0B3B47]"
           >
-           <FaHome /> Back to Home
+            <FaHome /> Back to Home
           </Link>
         </div>
       </Card>
