@@ -40,15 +40,15 @@ const ProfilePage = () => {
             ? user.role
             : "member";
 
-    const profile: UserProfile = {
+   const profile: UserProfile = {
         _id: user.id,
         name: user.name,
         email: user.email,
         image: user.image || undefined,
         role: roleSlug,
-        bio: "",
-        phone: "",
-        location: "",
+        bio: user.bio || "",
+        phone: user.phone || "",
+        location: user.location || "",
         createdAt: new Date(user.createdAt).toISOString(),
     };
 

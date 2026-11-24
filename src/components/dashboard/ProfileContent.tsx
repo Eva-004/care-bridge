@@ -1,11 +1,10 @@
-
 "use client";
-
 import { Avatar, Button, Card, Chip } from "@heroui/react";
 import { FiEdit2, FiMapPin, FiMail, FiPhone, FiCalendar, FiUsers, FiCamera } from "react-icons/fi";
 import type { ProfileContentProps } from "@/types/profile";
-import ProfilePicture from "./common/ProfilePicture";
+import ProfilePicture from "./ProfilePicture";
 import { authClient } from "@/lib/auth-client";
+import EditProfileModal from "./EditProfileModal";
 
 interface InfoProps {
     icon: React.ReactNode;
@@ -17,9 +16,7 @@ const ProfileContent = ({ profile, roles, isOwnProfile, onEdit }: ProfileContent
     const role = roles.find((item) => item.slug === profile.role);
     const memberSince = new Date(profile.createdAt).toLocaleDateString("en-GB", { month: "long", year: "numeric" });
 
-    const userData = authClient.useSession();
-    const user = userData?.data?.user;
-
+    // console.log(profile);
     const handleImageChange = async (imageUrl: string): Promise<void> => {
         const { error } = await authClient.updateUser({
             image: imageUrl,
@@ -27,7 +24,22 @@ const ProfileContent = ({ profile, roles, isOwnProfile, onEdit }: ProfileContent
 
         if (error) {
             throw new Error(error.message || "Failed to update profile picture");
+              
         }
+    };
+    const handleProfileUpdate = async (formData: {
+        name: string;
+        phone: string;
+        location: string;
+        bio: string;
+    }): Promise<void> => {
+        const { error } = await authClient.updateUser(formData);
+
+        if (error) {
+            throw new Error(error.message || "Update failed");
+        }
+
+      
     };
 
     return (
@@ -40,8 +52,8 @@ const ProfileContent = ({ profile, roles, isOwnProfile, onEdit }: ProfileContent
                             <div className="relative w-fit">
                                 {isOwnProfile ? (
                                     <ProfilePicture
-                                        image={user?.image || ""}
-                                        name={user?.name || ""}
+                                        image={profile.image || ""}
+                                        name={profile.name || ""}
                                         onImageChange={handleImageChange}
                                     />
                                 ) : (
@@ -67,7 +79,10 @@ const ProfileContent = ({ profile, roles, isOwnProfile, onEdit }: ProfileContent
                         </div>
                         {isOwnProfile ? (
                             <Button onPress={onEdit} className="flex items-center gap-2 bg-[#0F4C5C] text-white">
-                                <FiEdit2 /> Edit Profile
+                                <EditProfileModal
+                                    user={profile}
+                                    onUpdate={handleProfileUpdate}
+                                />
                             </Button>
                         ) : null}
                     </div>
