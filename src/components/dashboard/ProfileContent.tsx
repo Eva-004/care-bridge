@@ -4,6 +4,8 @@
 import { Avatar, Button, Card, Chip } from "@heroui/react";
 import { FiEdit2, FiMapPin, FiMail, FiPhone, FiCalendar, FiUsers, FiCamera } from "react-icons/fi";
 import type { ProfileContentProps } from "@/types/profile";
+import ProfilePicture from "./common/ProfilePicture";
+import { authClient } from "@/lib/auth-client";
 
 interface InfoProps {
     icon: React.ReactNode;
@@ -15,6 +17,19 @@ const ProfileContent = ({ profile, roles, isOwnProfile, onEdit }: ProfileContent
     const role = roles.find((item) => item.slug === profile.role);
     const memberSince = new Date(profile.createdAt).toLocaleDateString("en-GB", { month: "long", year: "numeric" });
 
+    const userData = authClient.useSession();
+    const user = userData?.data?.user;
+
+    const handleImageChange = async (imageUrl: string): Promise<void> => {
+        const { error } = await authClient.updateUser({
+            image: imageUrl,
+        });
+
+        if (error) {
+            throw new Error(error.message || "Failed to update profile picture");
+        }
+    };
+
     return (
         <div className="mx-auto max-w-5xl space-y-6">
             <Card className="overflow-hidden border border-gray-100 shadow-sm">
@@ -23,31 +38,22 @@ const ProfileContent = ({ profile, roles, isOwnProfile, onEdit }: ProfileContent
                     <div className="-mt-14 flex flex-col gap-4 sm:-mt-16 sm:flex-row sm:items-end sm:justify-between">
                         <div className="flex flex-col gap-3 sm:flex-row sm:items-end">
                             <div className="relative w-fit">
-                                <Avatar className="h-28 w-28">
-                                    <Avatar.Image
-                                        src={profile.image || ""}
-                                        alt={profile.name}
+                                {isOwnProfile ? (
+                                    <ProfilePicture
+                                        image={user?.image || ""}
+                                        name={user?.name || ""}
+                                        onImageChange={handleImageChange}
                                     />
-                                    <Avatar.Fallback>
-                                        {profile.name?.charAt(0).toUpperCase()}
-                                    </Avatar.Fallback>
-                                </Avatar>
-
-                                {isOwnProfile && (
-                                    <>
-                                        <input
-                                            type="file"
-                                            id="profile-image"
-                                            accept="image/*"
-                                            className="hidden"
+                                ) : (
+                                    <Avatar className="h-28 w-28">
+                                        <Avatar.Image
+                                            src={profile.image || ""}
+                                            alt={profile.name}
                                         />
-                                        <label
-                                            htmlFor="profile-image"
-                                            className="absolute bottom-1 right-1 flex h-9 w-9 cursor-pointer items-center justify-center rounded-full border-2 border-white bg-[#E36414] text-white shadow-md transition hover:bg-[#c9550e]"
-                                        >
-                                            <FiCamera size={16} />
-                                        </label>
-                                    </>
+                                        <Avatar.Fallback>
+                                            {profile.name?.charAt(0).toUpperCase()}
+                                        </Avatar.Fallback>
+                                    </Avatar>
                                 )}
                             </div>
 

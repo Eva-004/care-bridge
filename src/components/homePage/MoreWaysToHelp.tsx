@@ -43,7 +43,6 @@ const helpOptions = [
     link: "/campaigns",
     action: "View Campaigns",
     color: "bg-[#E8F2F5] text-[#0F4C5C]",
-    comingSoon: true,
   },
 ];
 
@@ -83,12 +82,6 @@ const MoreWaysToHelp = () => {
                     sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     className="object-cover transition-transform duration-500 group-hover:scale-105"
                   />
-
-                  {option.comingSoon && (
-                    <span className="absolute right-3 top-3 rounded-full bg-[#FFF0E8] px-3 py-1.5 text-xs font-semibold text-[#C66B36]">
-                      Coming Soon
-                    </span>
-                  )}
                 </div>
 
                 <Card.Content className="gap-4 p-6">
@@ -108,12 +101,6 @@ const MoreWaysToHelp = () => {
                     </p>
                   </div>
 
-                  {option.comingSoon ? (
-                    <div className="flex items-center gap-2 text-sm font-semibold text-[#C66B36]">
-                      <FiClock size={17} />
-                      Coming Soon
-                    </div>
-                  ) : (
                     <Link
                       href={option.link}
                       className="inline-flex w-fit items-center gap-2 text-sm font-semibold text-[#0F4C5C] transition-colors hover:text-[#E36414]"
@@ -121,7 +108,6 @@ const MoreWaysToHelp = () => {
                       {option.action}
                       <FiArrowUpRight size={17} />
                     </Link>
-                  )}
                 </Card.Content>
               </Card>
             );
