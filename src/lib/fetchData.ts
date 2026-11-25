@@ -36,6 +36,12 @@ export const getRequests = async (filters?: Filters) => {
   return res.json();
 };
 
+export const getUsers = async () => {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/user`);
+  const data = await res.json();
+  return data;
+}
+
 export const getCategories = async () => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/helpCategories`);
   const data = await res.json();
