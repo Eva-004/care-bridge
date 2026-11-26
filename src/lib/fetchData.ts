@@ -113,3 +113,14 @@ export const getCampaigns = async () => {
   }
   return res.json();
 };
+export const getCampaignById = async (id: string) => {
+    const res = await fetch(
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/campaigns/${id}`
+    );
+
+    if (!res.ok) {
+        throw new Error("Campaign not found");
+    }
+
+    return res.json();
+};
