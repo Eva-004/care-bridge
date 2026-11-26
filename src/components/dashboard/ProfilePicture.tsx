@@ -5,6 +5,7 @@ import { useRef, useState, useEffect, ChangeEvent } from "react";
 import Image from "next/image";
 import { HiOutlineCamera } from "react-icons/hi2";
 import { toast } from "react-toastify";
+import { uploadImage } from "@/lib/upload";
 
 interface ProfilePictureProps {
     image?: string;
@@ -20,22 +21,6 @@ const ProfilePicture = ({ image, name, onImageChange }: ProfilePictureProps) => 
     useEffect(() => {
         setPreview(image || "");
     }, [image]);
-
-    const uploadImage = async (file: File): Promise<string> => {
-        const body = new FormData();
-        body.append("image", file);
-
-        const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/upload-image`, {
-            method: "POST",
-            body,
-        });
-
-        const data: { url?: string; message?: string } = await res.json();
-
-        if (!res.ok) throw new Error(data.message || "Upload failed");
-
-        return data.url!;
-    };
 
     const handleImageChange = async (e: ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];

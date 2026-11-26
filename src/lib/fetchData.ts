@@ -106,3 +106,10 @@ export const getRoles = async () => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/roles`);
   return res.json();
 };
+export const getCampaigns = async () => {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/campaigns`);
+  if (!res.ok) {
+    throw new Error("Failed to fetch campaigns");
+  }
+  return res.json();
+};
