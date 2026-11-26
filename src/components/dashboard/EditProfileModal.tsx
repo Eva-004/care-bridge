@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { Button, Input, Label, Modal, TextField } from "@heroui/react";
 import { FaEdit } from "react-icons/fa";
 import { toast } from "react-toastify";
+import { Pencil } from "@gravity-ui/icons";
 
 interface EditProfileModalProps {
     user: {
@@ -63,9 +64,9 @@ const EditProfileModal = ({ user, onUpdate }: EditProfileModalProps) => {
         <Modal isOpen={isOpen} onOpenChange={setIsOpen}>
             <span
                 onClick={() => setIsOpen(true)}
-                className="bg-[#0F4C5C] text-white flex gap-2 items-center hover:bg-[#1D2D44] cursor-pointer"
+                className="flex size-9 items-center justify-center rounded-lg bg-white text-[#0F4C5C] shadow-md transition hover:bg-[#0F4C5C] hover:text-white"
             >
-                <FaEdit /> Edit Profile
+                <Pencil className="size-4" />
             </span>
             <Modal.Backdrop>
                 <Modal.Container placement="auto">

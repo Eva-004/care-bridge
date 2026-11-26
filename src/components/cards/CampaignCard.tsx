@@ -1,14 +1,24 @@
 
+"use client";
+
 import Image from "next/image";
 import { Card } from "@heroui/react";
 import { Campaign } from "@/types/campaign";
 import Link from "next/link";
+import { Pencil, TrashBin } from "@gravity-ui/icons";
+import { authClient } from "@/lib/auth-client";
+import EditCampaignModal from "../admin/modals/EditCampaignModal";
+import DeleteCampaignModal from "../admin/modals/DeleteCampaignModal";
 
 interface CampaignCardProps {
     campaign: Campaign;
 }
 
 const CampaignCard = ({ campaign }: CampaignCardProps) => {
+    const userData = authClient.useSession();
+    const user = userData.data?.user;
+    const isAdmin = user?.role === "admin";
+
     return (
         <Card className="overflow-hidden rounded-xl border border-gray-100 bg-white shadow-sm transition hover:shadow-md">
             <div className="relative h-40 w-full bg-[#F1F5F5]">
@@ -21,6 +31,14 @@ const CampaignCard = ({ campaign }: CampaignCardProps) => {
                         sizes="(max-width: 768px) 100vw, 50vw"
                         className="object-cover"
                     />
+                )}
+
+                {isAdmin && (
+                    <div className="absolute right-3 top-3 flex items-center gap-2">
+                        <EditCampaignModal campaign={campaign} />
+
+                        <DeleteCampaignModal campaign={campaign} />
+                    </div>
                 )}
             </div>
 
@@ -62,6 +80,7 @@ const CampaignCard = ({ campaign }: CampaignCardProps) => {
                         </p>
                     </div>
                 </div>
+
                 <Link
                     href={`/campaign/${campaign._id}`}
                     className="mt-2 flex w-full items-center justify-center rounded-lg bg-[#0F4C5C] px-4 py-2.5 text-sm font-medium text-white transition hover:bg-[#0B3D4A]"
