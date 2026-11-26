@@ -65,6 +65,9 @@ const Navbar = () => {
               <NavLink href="/donate">Donate</NavLink>
             </li>
             <li>
+              <NavLink href="/campaign">Campaigns</NavLink>
+            </li>
+            <li>
               <NavLink href="/about">About</NavLink>
             </li>
             <li>
@@ -122,6 +125,14 @@ const Navbar = () => {
               className="text-[#1D2D44]  font-medium"
             >
               Donate
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              href="/campaign"
+              className="text-[#1D2D44]  font-medium"
+            >
+              Campaigns
             </NavLink>
           </li>
 

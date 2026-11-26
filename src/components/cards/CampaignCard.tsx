@@ -2,6 +2,7 @@
 import Image from "next/image";
 import { Card } from "@heroui/react";
 import { Campaign } from "@/types/campaign";
+import Link from "next/link";
 
 interface CampaignCardProps {
     campaign: Campaign;
@@ -61,6 +62,12 @@ const CampaignCard = ({ campaign }: CampaignCardProps) => {
                         </p>
                     </div>
                 </div>
+                <Link
+                    href={`/campaigns/${campaign._id}`}
+                    className="mt-2 flex w-full items-center justify-center rounded-lg bg-[#0F4C5C] px-4 py-2.5 text-sm font-medium text-white transition hover:bg-[#0B3D4A]"
+                >
+                    View Details
+                </Link>
             </Card.Content>
         </Card>
     );

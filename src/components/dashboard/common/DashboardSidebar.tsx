@@ -3,6 +3,7 @@
 
 import { useState } from "react";
 import NavLink from "@/components/shared/NavLink";
+import Link from "next/link";
 
 interface Permission {
   href: string;
@@ -38,9 +39,9 @@ export default function DashboardSidebar({
       <div className="hidden min-h-screen w-60 border-r border-[#0F4C5C]/10 bg-[#0F4C5C] md:flex">
         <div className="w-full p-3">
           <div className="mb-6 flex items-center gap-3 px-1">
-            <h1 className="text-2xl font-bold text-white">
+            <Link href={'/'} className="text-2xl font-bold text-white">
               CareBridge
-            </h1>
+            </Link>
           </div>
 
           {NavList}
