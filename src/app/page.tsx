@@ -1,6 +1,7 @@
 import Banner from "@/components/homePage/Banner";
 import HowItWorks from "@/components/homePage/HowItWorks";
 import MoreWaysToHelp from "@/components/homePage/MoreWaysToHelp";
+import OurCampaigns from "@/components/homePage/OurCampaigns";
 import WhyCareBridge from "@/components/homePage/WhyCareBridge";
 import Image from "next/image";
 
@@ -11,6 +12,7 @@ export default function Home() {
     <HowItWorks/>
     <WhyCareBridge/>
     <MoreWaysToHelp/>
+    <OurCampaigns/>
     </>
   );
 }

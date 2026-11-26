@@ -78,7 +78,7 @@ const CampaignsPage = () => {
                             </div>
 
                             {upcomingCampaigns.length > 0 ? (
-                                <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
+                                <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
                                     {upcomingCampaigns.map((campaign) => (
                                         <CampaignCard
                                             key={campaign._id}
