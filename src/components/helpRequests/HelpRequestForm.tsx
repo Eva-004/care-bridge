@@ -59,6 +59,7 @@ export default function HelpRequestForm() {
 
       formData.append("userId", user?.id || "");
       formData.append("userName", user?.name || "");
+      formData.append("status", "pending");
 
       documents.forEach((file) => {
         formData.append("documents", file);

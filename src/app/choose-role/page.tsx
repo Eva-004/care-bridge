@@ -25,7 +25,7 @@ const ChooseRolePage = () => {
 
     const data = await res.json();
     if(res){
-      router.push(`/dashboard/${user?.role}/profile`);
+      router.push(`/dashboard/donor/profile`);
     }
   }
   return (

@@ -58,6 +58,38 @@ export const getRequestById = async (id: string) => {
     })),
   };
 }
+export const getMyRequests = async (userId: string) => {
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_URL}/helpRequests/user/${userId}`
+  );
+
+  return res.json();
+};
+export const updateHelpRequest = async (id: string, data: object) => {
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_URL}/helpRequests/${id}`,
+    {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    }
+  );
+
+  return res;
+};
+
+export const deleteHelpRequest = async (id: string) => {
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_URL}/helpRequests/${id}`,
+    {
+      method: "DELETE",
+    }
+  );
+
+  return res;
+};
 
 export const createDonation = async (donationData: DonationData) => {
   const res = await fetch(
@@ -114,13 +146,13 @@ export const getCampaigns = async () => {
   return res.json();
 };
 export const getCampaignById = async (id: string) => {
-    const res = await fetch(
-        `${process.env.NEXT_PUBLIC_SERVER_URL}/campaigns/${id}`
-    );
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_URL}/campaigns/${id}`
+  );
 
-    if (!res.ok) {
-        throw new Error("Campaign not found");
-    }
+  if (!res.ok) {
+    throw new Error("Campaign not found");
+  }
 
-    return res.json();
+  return res.json();
 };
