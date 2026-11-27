@@ -4,7 +4,8 @@ import { authClient } from "@/lib/auth-client";
 import ProfileContent from "@/components/dashboard/ProfileContent";
 import { useRouter } from "next/navigation";
 import { Spinner } from "@heroui/react";
-import type { ProfileContentProps, UserProfile,UserRole } from "@/types/profile";
+import type { ProfileContentProps, UserProfile, UserRole } from "@/types/profile";
+import { FiMapPin } from "react-icons/fi";
 
 const ProfilePage = () => {
     const { data: session, isPending } = authClient.useSession();
@@ -40,7 +41,7 @@ const ProfilePage = () => {
             ? user.role
             : "member";
 
-   const profile: UserProfile = {
+    const profile: UserProfile = {
         _id: user.id,
         name: user.name,
         email: user.email,
@@ -62,18 +63,35 @@ const ProfilePage = () => {
     ];
 
     return (
-        <div className="min-h-screen bg-[#F8F9FA] px-4 py-6 md:px-8 md:py-10">
+        <div className="min-h-screen bg-[#F8F9FA] w-11/12 mx-auto py-4">
             <div className="mx-auto max-w-6xl">
-                <div className="mb-8">
-                    <p className="text-sm font-medium text-[#E36414]">
-                        Account Settings
-                    </p>
-                    <h1 className="mt-1 text-2xl font-bold text-[#1D2D44] md:text-3xl">
-                        My Profile
-                    </h1>
-                    <p className="mt-2 text-sm text-gray-500">
-                        Manage your personal information and community profile.
-                    </p>
+                <div className="mb-8 flex flex-col justify-between gap-5 md:flex-row md:items-center">
+                    <div>
+                        <p className="text-sm font-medium text-[#E36414]">
+                            Account Settings
+                        </p>
+                        <h1 className="mt-1 text-2xl font-bold text-[#1D2D44] md:text-3xl">
+                            My Profile
+                        </h1>
+                        <p className="mt-2 text-sm text-gray-500">
+                            Manage your personal information and donor profile.
+                        </p>
+                    </div>
+
+                    <div className="flex max-w-md items-start gap-3 rounded-xl border border-[#0F4C5C]/10 bg-[#0F4C5C]/5 p-4">
+                        <div className="rounded-lg bg-white p-2 text-[#E36414]">
+                            <FiMapPin size={20} />
+                        </div>
+                        <div>
+                            <h3 className="text-sm font-semibold text-[#1D2D44]">
+                                Your Support Can Reach Faster!
+                            </h3>
+                            <p className="mt-1 text-xs leading-5 text-gray-600">
+                                Complete your profile and update your location to discover
+                                nearby help requests and reach people who need your support.
+                            </p>
+                        </div>
+                    </div>
                 </div>
 
                 <ProfileContent

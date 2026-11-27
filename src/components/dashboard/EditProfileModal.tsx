@@ -64,8 +64,7 @@ const EditProfileModal = ({ user, onUpdate }: EditProfileModalProps) => {
         <Modal isOpen={isOpen} onOpenChange={setIsOpen}>
             <span
                 onClick={() => setIsOpen(true)}
-                className="flex size-9 items-center justify-center rounded-lg bg-white text-[#0F4C5C] shadow-md transition hover:bg-[#0F4C5C] hover:text-white"
-            >
+                className="flex size-9 items-center justify-center rounded-lg bg-[#0F4C5C]  text-white shadow-md transition hover:bg-white hover:text-[#0F4C5C]" >
                 <Pencil className="size-4" />
             </span>
             <Modal.Backdrop>

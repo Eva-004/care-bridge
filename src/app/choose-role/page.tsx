@@ -25,7 +25,7 @@ const ChooseRolePage = () => {
 
     const data = await res.json();
     if(res){
-      router.push("/");
+      router.push(`/dashboard/${user?.role}/profile`);
     }
   }
   return (
@@ -56,7 +56,7 @@ const ChooseRolePage = () => {
             </div>
 
             <Link
-              href="/dashboard/user"
+              href="/dashboard/user/profile"
               className="mt-2 w-full bg-[#0F4C5C] font-semibold text-white hover:bg-[#0F4C5C]/90"
             >
               Continue as User
@@ -88,7 +88,7 @@ const ChooseRolePage = () => {
 
         <div className="text-center">
           <Link
-            href="/dashboard/user"
+            href="/dashboard/user/profile"
             className="text-sm font-medium text-gray-500 transition hover:text-[#0F4C5C]"
           >
             Skip for now

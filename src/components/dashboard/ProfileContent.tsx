@@ -16,7 +16,6 @@ const ProfileContent = ({ profile, roles, isOwnProfile, onEdit }: ProfileContent
     const role = roles.find((item) => item.slug === profile.role);
     const memberSince = new Date(profile.createdAt).toLocaleDateString("en-GB", { month: "long", year: "numeric" });
 
-    // console.log(profile);
     const handleImageChange = async (imageUrl: string): Promise<void> => {
         const { error } = await authClient.updateUser({
             image: imageUrl,
@@ -78,12 +77,12 @@ const ProfileContent = ({ profile, roles, isOwnProfile, onEdit }: ProfileContent
                             </div>
                         </div>
                         {isOwnProfile ? (
-                            <Button onPress={onEdit} className="flex items-center gap-2 bg-[#0F4C5C] text-white">
+                            
                                 <EditProfileModal
                                     user={profile}
                                     onUpdate={handleProfileUpdate}
                                 />
-                            </Button>
+                            
                         ) : null}
                     </div>
                     {profile.bio && <p className="mt-5 max-w-2xl text-sm leading-7 text-gray-600">{profile.bio}</p>}
@@ -107,7 +106,6 @@ const ProfileContent = ({ profile, roles, isOwnProfile, onEdit }: ProfileContent
                                 </>
                             )}
                             <Info icon={<FiCalendar />} label="Joined" value={memberSince} />
-                            <Info icon={<FiUsers />} label="Community Role" value={role?.name || "Member"} />
                         </div>
                     </div>
                 </Card>
