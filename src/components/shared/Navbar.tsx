@@ -23,7 +23,7 @@ const Navbar = () => {
     router.push("/login");
   }
   return (
-    <div className="navbar bg-[#F8F9FA] border-b border-gray-200 px-4 md:px-8 lg:px-12">
+    <div className="navbar  bg-[#F8F9FA] border-b border-gray-200 px-4 md:px-8 lg:px-12">
       <div className="navbar-start">
         <div className="dropdown">
           <div

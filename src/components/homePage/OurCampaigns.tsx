@@ -62,7 +62,7 @@ const OurCampaigns = () => {
                     </div>
 
                     <Link
-                        href="/campaigns"
+                        href="/campaign"
                         className="group flex w-fit items-center gap-2 rounded-lg border border-[#0F4C5C] px-5 py-3 text-sm font-semibold text-[#0F4C5C] transition hover:bg-[#0F4C5C] hover:text-white"
                     >
                         View All Campaigns
