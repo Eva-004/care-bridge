@@ -169,3 +169,27 @@ export const getAllDonations = async () => {
     const data = await res.json();
     return data.donations;
 };
+
+export const getDonationHistory = async () => {
+    const res = await fetch(
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/donationHistory`
+    );
+
+    if (!res.ok) {
+        throw new Error("Failed to fetch donation history");
+    }
+
+    return await res.json();
+};
+
+export const getMyDonationHistory = async (userId: string) => {
+    const res = await fetch(
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/myDonationHistory/${userId}`
+    );
+
+    if (!res.ok) {
+        throw new Error("Failed to fetch donation history");
+    }
+
+    return await res.json();
+};
