@@ -5,7 +5,7 @@ import { FiBell, FiCheckCircle } from "react-icons/fi";
 const NotificationPanel = () => {
     return (
         <Card className="h-full border border-gray-100 shadow-sm">
-            <div className="flex items-center gap-3 border-b border-gray-100 px-5 py-4">
+            <div className="flex items-center gap-3 border-b border-gray-100 px-5 py-2">
                 <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#EAF4F1] text-[#0F6848]">
                     <FiBell size={19} />
                 </div>
@@ -20,7 +20,7 @@ const NotificationPanel = () => {
                 </div>
             </div>
 
-            <div className="flex min-h-[280px] flex-col items-center justify-center px-5 py-10 text-center">
+            <div className="flex min-h-[250px] flex-col items-center justify-center px-5 py-4 text-center">
                 <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#EAF4F1] text-[#0F6848]">
                     <FiCheckCircle size={30} />
                 </div>

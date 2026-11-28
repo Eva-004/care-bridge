@@ -156,3 +156,16 @@ export const getCampaignById = async (id: string) => {
 
   return res.json();
 };
+
+export const getAllDonations = async () => {
+    const res = await fetch(
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/donations`
+    );
+
+    if (!res.ok) {
+        throw new Error("Failed to fetch donations");
+    }
+
+    const data = await res.json();
+    return data.donations;
+};
