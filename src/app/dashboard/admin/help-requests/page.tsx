@@ -42,7 +42,7 @@ const HelpRequestManagePage = () => {
     ).length;
 
     const completed = requests.filter(
-        (request) => request.status === "completed"
+        (request) => request.status === "paid"
     ).length;
 
     const stats = [
@@ -61,7 +61,7 @@ const HelpRequestManagePage = () => {
             bg: "bg-[#E8F3F4]",
         },
         {
-            title: "Completed Requests",
+            title: "Paid Requests",
             count: completed,
             icon: <FiCheck size={20} />,
             color: "text-green-600",

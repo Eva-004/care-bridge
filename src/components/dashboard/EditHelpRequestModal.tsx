@@ -250,7 +250,7 @@ const EditHelpRequestModal = ({
                                                 >
                                                     <option value="pending">Pending</option>
                                                     <option value="approved">Approved</option>
-                                                    <option value="completed">Completed</option>
+                                                    <option value="paid">Completed</option>
                                                     <option value="rejected">Rejected</option>
                                                 </select>
                                             </div>
