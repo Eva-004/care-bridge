@@ -1,9 +1,10 @@
+import OverView from '@/components/dashboard/OverView';
 import React from 'react';
 
 const UserPage = () => {
     return (
         <div>
-            User
+            <OverView/>
         </div>
     );
 };

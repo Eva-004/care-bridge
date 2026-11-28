@@ -3,9 +3,16 @@
 import HelpRequestTable from "./HelpRequestTable";
 
 interface HelpRequest {
-    _id: string;
-    supportType: string;
+     _id: string;
+    name: string;
+    phone: string;
+    category: string | { _id: string; name: string };
     urgency: string;
+    description: string;
+    supportType: string;
+    amount?: string | number;
+    needs?: string;
+    location: string;
     status: string;
     createdAt: string;
 }

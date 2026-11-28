@@ -14,9 +14,15 @@ interface Category {
 
 interface HelpRequestData {
     _id: string;
-    title?: string;
-    description?: string;
-    category?: string | { _id: string; name: string };
+    name: string;
+    phone: string;
+    category: string | { _id: string; name: string };
+    urgency: string;
+    description: string;
+    supportType: string;
+    amount?: string | number;
+    needs?: string;
+    location: string;
     status: string;
 }
 
@@ -31,13 +37,19 @@ const EditHelpRequestModal = ({
 }: EditHelpRequestModalProps) => {
     const [isOpen, setIsOpen] = useState(false);
     const [categories, setCategories] = useState<Category[]>([]);
-    const [title, setTitle] = useState(request.title || "");
-    const [description, setDescription] = useState(request.description || "");
+    const [name, setName] = useState(request.name || "");
+    const [phone, setPhone] = useState(request.phone || "");
     const [category, setCategory] = useState(
         typeof request.category === "object"
             ? request.category?._id
-            : request.category
+            : request.category || ""
     );
+    const [urgency, setUrgency] = useState(request.urgency || "normal");
+    const [description, setDescription] = useState(request.description || "");
+    const [supportType, setSupportType] = useState(request.supportType || "");
+    const [amount, setAmount] = useState(String(request.amount || ""));
+    const [needs, setNeeds] = useState(request.needs || "");
+    const [location, setLocation] = useState(request.location || "");
     const [status, setStatus] = useState(request.status);
     const [loading, setLoading] = useState(false);
 
@@ -57,7 +69,17 @@ const EditHelpRequestModal = ({
         const updateData =
             role === "admin"
                 ? { status }
-                : { title, category };
+                : {
+                    name,
+                    phone,
+                    category,
+                    urgency,
+                    description,
+                    supportType,
+                    amount: supportType === "financial" ? amount : "",
+                    needs: supportType === "in-kind" ? needs : "",
+                    location,
+                };
 
         const res = await updateHelpRequest(request._id, updateData);
 
@@ -71,8 +93,6 @@ const EditHelpRequestModal = ({
 
         setLoading(false);
     };
-
-  
 
     return (
         <>
@@ -107,24 +127,24 @@ const EditHelpRequestModal = ({
                                     >
                                         {role === "user" ? (
                                             <>
-                                                <TextField className="w-full">
-                                                    <Label>Request Title</Label>
+                                                <TextField isRequired>
+                                                    <Label>Full Name</Label>
                                                     <input
                                                         required
-                                                        value={title}
-                                                        onChange={(e) => setTitle(e.target.value)}
+                                                        value={name}
+                                                        onChange={(e) => setName(e.target.value)}
                                                         className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm outline-none focus:border-[#0F4C5C]"
                                                     />
                                                 </TextField>
 
-                                                <TextField className="w-full">
-                                                    <Label>Description</Label>
-                                                    <textarea
+                                                <TextField isRequired>
+                                                    <Label>Contact Number</Label>
+                                                    <input
                                                         required
-                                                        rows={3}
-                                                        value={description}
-                                                        onChange={(e) => setDescription(e.target.value)}
-                                                        className="w-full resize-none rounded-lg border border-gray-200 px-3 py-2 text-sm outline-none focus:border-[#0F4C5C]"
+                                                        type="tel"
+                                                        value={phone}
+                                                        onChange={(e) => setPhone(e.target.value)}
+                                                        className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm outline-none focus:border-[#0F4C5C]"
                                                     />
                                                 </TextField>
 
@@ -144,6 +164,81 @@ const EditHelpRequestModal = ({
                                                         ))}
                                                     </select>
                                                 </div>
+
+                                                <div>
+                                                    <Label>Urgency Level</Label>
+                                                    <select
+                                                        required
+                                                        value={urgency}
+                                                        onChange={(e) => setUrgency(e.target.value)}
+                                                        className="mt-2 h-11 w-full rounded-lg border border-gray-200 bg-white px-3 text-sm outline-none focus:border-[#0F4C5C]"
+                                                    >
+                                                        <option value="normal">Normal</option>
+                                                        <option value="urgent">Urgent</option>
+                                                        <option value="critical">Critical</option>
+                                                    </select>
+                                                </div>
+
+                                                <TextField isRequired>
+                                                    <Label>Description</Label>
+                                                    <textarea
+                                                        required
+                                                        rows={4}
+                                                        value={description}
+                                                        onChange={(e) => setDescription(e.target.value)}
+                                                        className="w-full resize-none rounded-lg border border-gray-200 px-3 py-2 text-sm outline-none focus:border-[#0F4C5C]"
+                                                    />
+                                                </TextField>
+
+                                                <div>
+                                                    <Label>Type of Support Needed</Label>
+                                                    <select
+                                                        required
+                                                        value={supportType}
+                                                        onChange={(e) => setSupportType(e.target.value)}
+                                                        className="mt-2 h-11 w-full rounded-lg border border-gray-200 bg-white px-3 text-sm outline-none focus:border-[#0F4C5C]"
+                                                    >
+                                                        <option value="">Select support type</option>
+                                                        <option value="financial">Financial Support</option>
+                                                        <option value="in-kind">In-kind Support</option>
+                                                    </select>
+                                                </div>
+
+                                                {supportType === "financial" && (
+                                                    <TextField isRequired>
+                                                        <Label>Required Amount (BDT)</Label>
+                                                        <input
+                                                            required
+                                                            type="number"
+                                                            min="1"
+                                                            value={amount}
+                                                            onChange={(e) => setAmount(e.target.value)}
+                                                            className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm outline-none focus:border-[#0F4C5C]"
+                                                        />
+                                                    </TextField>
+                                                )}
+
+                                                {supportType === "in-kind" && (
+                                                    <TextField isRequired>
+                                                        <Label>What Do You Need?</Label>
+                                                        <input
+                                                            required
+                                                            value={needs}
+                                                            onChange={(e) => setNeeds(e.target.value)}
+                                                            className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm outline-none focus:border-[#0F4C5C]"
+                                                        />
+                                                    </TextField>
+                                                )}
+
+                                                <TextField isRequired>
+                                                    <Label>Location</Label>
+                                                    <input
+                                                        required
+                                                        value={location}
+                                                        onChange={(e) => setLocation(e.target.value)}
+                                                        className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm outline-none focus:border-[#0F4C5C]"
+                                                    />
+                                                </TextField>
                                             </>
                                         ) : (
                                             <div>

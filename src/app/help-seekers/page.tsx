@@ -32,6 +32,7 @@ interface HelpRequest {
   needs?: string,
   amount?: string | number;
   location?: string;
+  status?: string;
 }
 
 const HelpSeekersPage = () => {
@@ -58,7 +59,7 @@ const HelpSeekersPage = () => {
       try {
         setLoading(true);
         const data = await getRequests(filters);
-        setHelpRequests(data);
+        setHelpRequests(data.filter((request: HelpRequest) => request.status === "approved"));
       } catch (error) {
         console.error(error);
         setHelpRequests([]);

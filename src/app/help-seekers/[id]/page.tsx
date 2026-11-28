@@ -26,9 +26,11 @@ type HelpRequest = {
   urgency: string;
   description: string;
   supportType: string;
-  needs: string;
+  needs?: string;
   location: string;
   createdAt: string;
+  amount?: string | number;
+  paymentMethod?: string;
   documents?: {
     fileId: string;
     name: string;
@@ -110,13 +112,12 @@ const HelpSeekerDetailsPage = () => {
             </div>
 
             <span
-              className={`inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold capitalize ${
-                request.urgency === "critical"
-                  ? "bg-red-50 text-red-600"
-                  : request.urgency === "urgent"
+              className={`inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold capitalize ${request.urgency === "critical"
+                ? "bg-red-50 text-red-600"
+                : request.urgency === "urgent"
                   ? "bg-orange-50 text-orange-600"
                   : "bg-green-50 text-green-600"
-              }`}
+                }`}
             >
               <FaExclamationCircle />
               {request.urgency}
@@ -142,26 +143,52 @@ const HelpSeekerDetailsPage = () => {
 
             <section className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <div className="flex items-center gap-5 rounded-xl bg-[#F3F7F8] p-5">
-                <FaCapsules className="shrink-0 text-4xl text-[#0F4C5C]" />
+                {request.supportType === "financial" ? (
+                  <FaCapsules className="shrink-0 text-4xl text-[#0F4C5C]" />
+                ) : (
+                  <FaBoxOpen className="shrink-0 text-4xl text-[#E36414]" />
+                )}
 
                 <div>
-                  <p className="text-sm text-gray-500">Support Type</p>
+                  <p className="text-sm text-gray-500">
+                    {request.supportType === "financial" ? "Support Type" : "Needs"}
+                  </p>
                   <h3 className="mt-1 text-lg font-bold capitalize text-[#1D2D44]">
-                    {request.supportType}
+                    {request.supportType === "financial"
+                      ? "Financial"
+                      : request.needs}
                   </h3>
                 </div>
               </div>
 
-              <div className="flex items-center gap-5 rounded-xl bg-[#F3F7F8] p-5">
-                <FaBoxOpen className="shrink-0 text-4xl text-[#E36414]" />
+              {request.supportType === "financial" && (
+                <div className="flex items-center gap-5 rounded-xl bg-[#F3F7F8] p-5">
+                  <FaCapsules className="shrink-0 text-4xl text-[#E36414]" />
 
-                <div>
-                  <p className="text-sm text-gray-500">Needs</p>
-                  <h3 className="mt-1 text-lg font-bold text-[#1D2D44]">
-                    {request.needs}
-                  </h3>
+                  <div>
+                    <p className="text-sm text-gray-500">Required Amount</p>
+                    <h3 className="mt-1 text-lg font-bold text-[#1D2D44]">
+                      ৳{request.amount}
+                    </h3>
+                  </div>
                 </div>
-              </div>
+              )}
+              {request.supportType === "financial" && (
+                <div className="flex items-center gap-5 rounded-xl border border-[#DCE8EA] bg-[#F3F7F8] p-5">
+                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-white">
+                    <FaPhone className="text-xl text-[#0F4C5C]" />
+                  </div>
+
+                  <div>
+                    <p className="text-sm text-gray-500">
+                      Preferred Payment Method
+                    </p>
+                    <h3 className="mt-1 text-lg font-bold capitalize text-[#1D2D44]">
+                      {request.paymentMethod}
+                    </h3>
+                  </div>
+                </div>
+              )}
             </section>
 
             <section className="flex items-center gap-4 border-b border-gray-100 pb-6">
@@ -177,7 +204,7 @@ const HelpSeekerDetailsPage = () => {
               </div>
             </section>
 
-            <RequestAttachment documents={request.documents || []}/>
+            <RequestAttachment documents={request.documents || []} />
           </div>
         </Card>
       </div>

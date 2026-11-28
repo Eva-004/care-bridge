@@ -233,11 +233,30 @@ export default function HelpRequestForm() {
           </div>
 
           {supportType === "financial" && (
-            <TextField isRequired name="amount" className="w-full">
-              <Label>Required Amount (BDT)</Label>
-              <Input type="number" min={1} placeholder="e.g. 15000" />
-              <FieldError />
-            </TextField>
+            <>
+              <TextField isRequired name="amount" className="w-full">
+                <Label>Required Amount (BDT)</Label>
+                <Input type="number" min={1} placeholder="e.g. 15000" />
+                <FieldError />
+              </TextField>
+
+              <div className="w-full">
+                <Label>Preferred Payment Method</Label>
+                <select
+                  name="paymentMethod"
+                  required
+                  defaultValue=""
+                  className="mt-2 h-11 w-full rounded-xl border border-gray-300 bg-white px-3 text-sm text-gray-700 outline-none transition focus:border-[#0F4C5C] focus:ring-2 focus:ring-[#0F4C5C]/10"
+                >
+                  <option value="" disabled>
+                    Select payment method
+                  </option>
+                  <option value="bkash">bKash</option>
+                  <option value="nagad">Nagad</option>
+                  <option value="rocket">Rocket</option>
+                </select>
+              </div>
+            </>
           )}
 
           {supportType === "in-kind" && (

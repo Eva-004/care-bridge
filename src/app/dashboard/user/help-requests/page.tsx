@@ -7,10 +7,16 @@ import { getMyRequests, getRequestById } from "@/lib/fetchData";
 import { FiCheckCircle, FiFileText, FiXCircle } from "react-icons/fi";
 
 interface HelpRequestData {
-    _id: string;
-    userId: string;
-    supportType: string;
+     _id: string;
+    name: string;
+    phone: string;
+    category: string | { _id: string; name: string };
     urgency: string;
+    description: string;
+    supportType: string;
+    amount?: string | number;
+    needs?: string;
+    location: string;
     status: string;
     createdAt: string;
 }
@@ -40,7 +46,7 @@ const MyHelpRequestPage = () => {
     ).length;
 
     return (
-        <div className="space-y-6">
+        <div className="space-y-6 w-11/12 mx-auto py-4">
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
                 <div className="flex items-center justify-between rounded-xl border border-gray-100 bg-white p-5 shadow-sm">
                     <div>

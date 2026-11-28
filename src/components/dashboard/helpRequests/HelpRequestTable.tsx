@@ -5,11 +5,19 @@ import { Table, Chip, Button } from "@heroui/react";
 import EditHelpRequestModal from "../EditHelpRequestModal";
 import { updateHelpRequest } from "@/lib/fetchData";
 import { toast } from "react-toastify";
+import Link from "next/link";
 
 interface HelpRequest {
     _id: string;
-    supportType: string;
+    name: string;
+    phone: string;
+    category: string | { _id: string; name: string };
     urgency: string;
+    description: string;
+    supportType: string;
+    amount?: string | number;
+    needs?: string;
+    location: string;
     status: string;
     createdAt: string;
 }
@@ -61,7 +69,7 @@ const HelpRequestTable = ({
                 <Table.ScrollContainer>
                     <Table.Content className="min-w-[700px]">
                         <Table.Header>
-                            <Table.Column isRowHeader>Support Type</Table.Column>
+                            <Table.Column isRowHeader>Request Details</Table.Column>
                             <Table.Column>Urgency</Table.Column>
                             <Table.Column>Submitted Date</Table.Column>
                             <Table.Column>Status</Table.Column>
@@ -73,9 +81,17 @@ const HelpRequestTable = ({
                                 requests.map((request) => (
                                     <Table.Row key={request._id}>
                                         <Table.Cell>
-                                            <span className="font-medium capitalize text-[#1D2D44]">
-                                                {request.supportType}
-                                            </span>
+                                            <Link
+                                                href={`/help-seekers/${request._id}`}
+                                                className="font-semibold text-[#0F4C5C] transition hover:text-[#E36414] hover:underline"
+                                            >
+                                                {request.name}
+                                            </Link>
+                                            <p className="mt-1 text-xs capitalize text-gray-500">
+                                                {request.supportType === "financial"
+                                                    ? `Financial - ৳${request.amount}`
+                                                    : `In-kind - ${request.needs}`}
+                                            </p>
                                         </Table.Cell>
 
                                         <Table.Cell>
@@ -133,6 +149,15 @@ const HelpRequestTable = ({
                                                                 </Button>
                                                             </>
                                                         )}
+                                                        {request.status === "approved" && (
+                                                            <Button
+                                                                size="sm"
+                                                                className="bg-green-600 text-white hover:bg-green-700"
+                                                            >
+                                                                Pay
+                                                            </Button>
+                                                        )}
+
                                                         <EditHelpRequestModal request={request} role="admin" />
 
                                                     </>

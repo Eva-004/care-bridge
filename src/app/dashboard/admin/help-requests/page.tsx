@@ -7,10 +7,17 @@ import HelpRequest from "@/components/dashboard/helpRequests/HelpRequest";
 import { getRequests } from "@/lib/fetchData";
 
 interface Request {
-    _id: string;
-    status: string;
-    supportType: string;
+     _id: string;
+    name: string;
+    phone: string;
+    category: string | { _id: string; name: string };
     urgency: string;
+    description: string;
+    supportType: string;
+    amount?: string | number;
+    needs?: string;
+    location: string;
+    status: string;
     createdAt: string;
 }
 

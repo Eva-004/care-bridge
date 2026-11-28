@@ -25,6 +25,7 @@ interface HelpRequest {
   needs?: string,
   amount?: string | number;
   location?: string;
+  status?: string;
 }
 
 interface HelpRequestCardProps {
