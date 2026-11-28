@@ -61,7 +61,7 @@ const HelpRequestManagePage = () => {
             bg: "bg-[#E8F3F4]",
         },
         {
-            title: "Paid Requests",
+            title: "Completed Requests",
             count: completed,
             icon: <FiCheck size={20} />,
             color: "text-green-600",

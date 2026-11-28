@@ -32,7 +32,7 @@ const ActiveCampaigns = ({ campaigns }: ActiveCampaignsProps) => {
                 </div>
 
                 <Link
-                    href="/campaigns"
+                    href="/dashboard/admin/campaign"
                     className="flex items-center gap-1 text-sm font-semibold text-[#0F6848] hover:text-[#E36414]"
                 >
                     View All

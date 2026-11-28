@@ -263,23 +263,23 @@ const AdminDashboard = () => {
                 </div>
             </section>
 
-            <section className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
+            <section className="grid grid-cols-1 gap-4 md:grid-cols-4">
                 {cards.map((card) => (
                     <OverviewCard key={card.title} {...card} />
                 ))}
             </section>
 
-            <section className="grid grid-cols-1 gap-5 xl:grid-cols-5">
-                <div className="xl:col-span-3">
+            <section className="grid grid-cols-1 gap-5 md:grid-cols-5">
+                <div className="md:col-span-3">
                     <OverviewAnalytics data={analytics} />
                 </div>
 
-                <div className="xl:col-span-2">
+                <div className="md:col-span-2">
                     <NotificationPanel />
                 </div>
             </section>
 
-            <section className="grid grid-cols-1 gap-5 xl:grid-cols-2">
+            <section className="grid grid-cols-1 gap-5 md:grid-cols-2">
                 <RecentHelpRequests
                     requests={[...requests]
                         .sort(

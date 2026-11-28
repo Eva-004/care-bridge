@@ -1,4 +1,5 @@
 
+import { authClient } from "@/lib/auth-client";
 import { Card } from "@heroui/react";
 import Link from "next/link";
 import { FiFileText, FiArrowRight } from "react-icons/fi";
@@ -30,6 +31,9 @@ const RecentHelpRequests = ({ requests }: RecentHelpRequestsProps) => {
         }
     };
 
+    const userData = authClient.useSession();
+      const user = userData.data?.user;
+
     return (
         <Card className="border border-gray-100 shadow-sm">
             <div className="flex items-center justify-between border-b border-gray-100 px-5 py-4">
@@ -49,7 +53,7 @@ const RecentHelpRequests = ({ requests }: RecentHelpRequestsProps) => {
                 </div>
 
                 <Link
-                    href="/dashboard/manage-requests"
+                    href={`/dashboard/${user?.role}/help-requests`}
                     className="flex items-center gap-1 text-sm font-semibold text-[#0F6848] hover:text-[#E36414]"
                 >
                     View All
